@@ -19,7 +19,7 @@ function PdfView({ blob }) {
       try {
         const pdfjs = await import('pdfjs-dist/build/pdf')
         pdfjs.GlobalWorkerOptions.workerSrc = (await import('pdfjs-dist/build/pdf.worker.min.js?url')).default
-        d = await pdfjs.getDocument({ data: await blob.arrayBuffer() }).promise
+        d = await pdfjs.getDocument({ data: await blob.arrayBuffer(), isEvalSupported: false }).promise
         if (!dead) setDoc(d)
       } catch { if (!dead) setErr(true) }
     })()

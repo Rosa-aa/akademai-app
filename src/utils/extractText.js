@@ -10,7 +10,7 @@ async function pdf(file) {
   const pdfjs = await import('pdfjs-dist/build/pdf')
   const worker = (await import('pdfjs-dist/build/pdf.worker.min.js?url')).default
   pdfjs.GlobalWorkerOptions.workerSrc = worker
-  const doc = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise
+  const doc = await pdfjs.getDocument({ data: await file.arrayBuffer(), isEvalSupported: false }).promise
   const pages = []
   for (let i = 1; i <= doc.numPages; i++) {
     const c = await (await doc.getPage(i)).getTextContent()
